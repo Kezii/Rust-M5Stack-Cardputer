@@ -120,19 +120,19 @@ fn main() {
                     player_pos.x -= player_dir.cos() * 0.1;
                     player_pos.z -= player_dir.sin() * 0.1;
                 }
-                keyboard::Key::Comma => {
+                keyboard::Key::Slash => {
                     player_pos.x += (player_dir + PI / 2.0).cos() * 0.1;
                     player_pos.z += (player_dir + PI / 2.0).sin() * 0.1;
                 }
-                keyboard::Key::Slash => {
+                keyboard::Key::Comma => {
                     player_pos.x -= (player_dir + PI / 2.0).cos() * 0.1;
                     player_pos.z -= (player_dir + PI / 2.0).sin() * 0.1;
                 }
 
-                keyboard::Key::A => {
+                keyboard::Key::D => {
                     player_dir += 0.01;
                 }
-                keyboard::Key::D => {
+                keyboard::Key::A => {
                     player_dir -= 0.01;
                 }
 
