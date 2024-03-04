@@ -16,9 +16,9 @@
 - [ ] app loader ?
 
 
-## examples
+# examples
 
-### 3d graphics demo
+## 3d graphics demo
 ![gfx](https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/4ad54248-a363-4d34-b510-83186cdd3fb8)
 
 
@@ -26,17 +26,19 @@ https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/ea274a64-5811-484
 
 
 Interactive 3d graphics demo
+
 Use (orange) arrow keys to move, EASD to look around
 
 ```
 cargo run --release --bin graphics
 ```
 
-### Terminal emulator with rink-core
+## Terminal emulator with rink-core
 
 ![terminal](https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/90585aa0-dfcb-4bc8-bd9d-3e5204a807f0)
 
 Terminal emulator with rink-core built-in, with a reduced set of (gnu) units so it fits on the ram
+
 You can use it as a simple units-aware calculator
 
 ```
