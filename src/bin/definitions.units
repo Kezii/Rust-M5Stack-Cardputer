@@ -1,0 +1,587 @@
+#
+!locale en_US
+!  set UNITS_ENGLISH US
+!endlocale
+!locale en_GB
+!  set UNITS_ENGLISH GB
+!endlocale
+!set UNITS_ENGLISH US   # Default setting for English units
+!category base_units "SI Base Units"
+?? Equal to the mass of the international prototype of the
+?? kilogram. 3rd CGPM (1901, CR, 70).
+kg        !kilogram
+?? Duration of 9192631770 periods of the radiation corresponding to
+?? the transition between the two hyperfine levels of the ground state
+?? of the cesium-133 atom at rest at a temperature of 0 K. 13th CGPM
+?? (1968/68, Resolution 1; CR; 103).
+s         !second
+?? Length of the path travelled by light in vacuum during a time
+?? interval of 1 / 299 792 458 of a second. 17th CGPM (1983, CR, 70).
+m         !meter
+?? The constant current which, if maintained in two straight parallel
+?? conductors of infinite length, of negligible circular
+?? cross-section, and placed 1 meter apart in vacuum, would produce
+?? between those conductors a force equal to 2e-7 newton per meter of
+?? length. 9th CGPM (1948).
+A         !ampere
+amp       A
+?? The luminous intensity, in a given direction, of a source that
+?? emits monochromatic radiation of frequency 540e12 hertz and that
+?? has a radiant intensity in that direction of 1/683 watt per
+?? steradian. 16th CGPM (1979, Resolution 3; CR, 100).
+cd        !candela
+?? The amount of substance a system which contains as many elementary
+?? entities as there are atoms in 0.012 kilogram of carbon 12 at rest
+?? and in their ground state. When the mole is used, the elementary
+?? entities must be specified and may be atoms, molecules, ions,
+?? electrons, other particles, or specified groups of such
+?? particles. 14th CGPM (1971, Resolution 3; CR, 78).
+mol       !mole
+?? The fraction 1 / 273.16 of the thermodynamic temperature of the
+?? triple point of water. 13th CGPM (1967/68, Resolution 4; CR, 104).
+K         !kelvin
+!endcategory
+?? The angle subtended at the center of a circle by an arc equal in
+?? length to the radius of the circle
+radian    !
+?? Solid angle which cuts off an area of the surface of the sphere
+?? equal to that of a square with sides of length equal to the radius
+?? of the sphere
+sr        !steradian
+?? Basic unit of information (entropy).  The entropy in bits of a
+?? random variable over a finite alphabet is defined to be the sum of
+?? -p(i)*log2(p(i)) over the alphabet where p(i) is the probability
+?? that the random variable takes on the value i.
+bit       !
+?? One international unit of a biological agent is the biological
+?? activity equivalent to a standard amount of a substance that
+?? represents the agent (its “reference preparation”). Agents that
+?? can be measured in international units are generally found in
+?? multiple forms (such as Vitamin A) and/or not meaningfully
+?? comparable in SI units like moles (such as prolactin).
+?? WHO TRS 932, Annex 2.
+IU                              !
+biological_activity             ? IU
+biological_activity_density     ? mass / biological_activity
+yotta-                  1e24     # Greek or Latin octo, "eight"
+zetta-                  1e21     # Latin septem, "seven"
+exa-                    1e18     # Greek hex, "six"
+peta-                   1e15     # Greek pente, "five"
+tera-                   1e12     # Greek teras, "monster"
+giga-                   1e9      # Greek gigas, "giant"
+mega-                   1e6      # Greek megas, "large"
+myria-                  1e4      # Not an official SI prefix
+kilo-                   1e3      # Greek chilioi, "thousand"
+hecto-                  1e2      # Greek hekaton, "hundred"
+deca-                   1e1      # Greek deka, "ten"
+deka-                   deca
+deci-                   1e-1     # Latin decimus, "tenth"
+centi-                  1e-2     # Latin centum, "hundred"
+milli-                  1e-3     # Latin mille, "thousand"
+micro-                  1e-6     # Latin micro or Greek mikros, "small"
+nano-                   1e-9     # Latin nanus or Greek nanos, "dwarf"
+pico-                   1e-12    # Spanish pico, "a bit"
+femto-                  1e-15    # Danish-Norwegian femten, "fifteen"
+atto-                   1e-18    # Danish-Norwegian atten, "eighteen"
+zepto-                  1e-21    # Latin septem, "seven"
+yocto-                  1e-24    # Greek or Latin octo, "eight"
+quarter--               1|4
+semi--                  0.5
+demi--                  0.5
+hemi--                  0.5
+half-                   0.5
+double-                 2
+triple-                 3
+treble-                 3
+kibi-                   2^10     # In response to the convention of illegally
+mebi-                   2^20     # and confusingly using metric prefixes for
+gibi-                   2^30     # powers of two, the International
+tebi-                   2^40     # Electrotechnical Commission aproved these
+pebi-                   2^50     # binary prefixes for use in 1998.  If you
+exbi-                   2^60     # want to refer to "megabytes" using the
+Ki--                    kibi     # binary definition, use these prefixes.
+Mi--                    mebi
+Gi--                    gibi
+Ti--                    tebi
+Pi--                    pebi
+Ei--                    exbi
+Y--                     yotta
+Z--                     zetta
+E--                     exa
+P--                     peta
+T--                     tera
+G--                     giga
+M--                     mega
+k--                     kilo
+h--                     hecto
+da--                    deka
+d--                     deci
+c--                     centi
+m--                     milli
+u--                     micro   # it should be a mu but u is easy to type
+n--                     nano
+p--                     pico
+f--                     femto
+a--                     atto
+z--                     zepto
+y--                     yocto
+!category numbers "Numbers"
+one                     1
+two                     2
+double                  2
+couple                  2
+three                   3
+triple                  3
+four                    4
+quadruple               4
+five                    5
+quintuple               5
+six                     6
+seven                   7
+eight                   8
+nine                    9
+ten                     10
+eleven                  11
+twelve                  12
+thirteen                13
+fourteen                14
+fifteen                 15
+sixteen                 16
+seventeen               17
+eighteen                18
+nineteen                19
+twenty                  20
+thirty                  30
+forty                   40
+fifty                   50
+sixty                   60
+seventy                 70
+eighty                  80
+ninety                  90
+hundred                 100
+thousand                1000
+million                 1e6
+!endcategory
+!category short_system "Short System"
+shortbillion               1e9
+shorttrillion              1e12
+shortquadrillion           1e15
+shortquintillion           1e18
+shortsextillion            1e21
+shortseptillion            1e24
+shortoctillion             1e27
+shortnonillion             1e30
+shortnoventillion          shortnonillion
+shortdecillion             1e33
+shortundecillion           1e36
+shortduodecillion          1e39
+shorttredecillion          1e42
+shortquattuordecillion     1e45
+shortquindecillion         1e48
+shortsexdecillion          1e51
+shortseptendecillion       1e54
+shortoctodecillion         1e57
+shortnovemdecillion        1e60
+shortvigintillion          1e63
+!endcategory
+centillion              1e303
+googol                  1e100
+!category long_system "Long System"
+longbillion               million^2
+longtrillion              million^3
+longquadrillion           million^4
+longquintillion           million^5
+longsextillion            million^6
+longseptillion            million^7
+longoctillion             million^8
+longnonillion             million^9
+longnoventillion          longnonillion
+longdecillion             million^10
+longundecillion           million^11
+longduodecillion          million^12
+longtredecillion          million^13
+longquattuordecillion     million^14
+longquindecillion         million^15
+longsexdecillion          million^16
+longseptdecillion         million^17
+longoctodecillion         million^18
+longnovemdecillion        million^19
+longvigintillion          million^20
+milliard                1000 million
+billiard                1000 million^2
+trilliard               1000 million^3
+quadrilliard            1000 million^4
+quintilliard            1000 million^5
+sextilliard             1000 million^6
+septilliard             1000 million^7
+octilliard              1000 million^8
+nonilliard              1000 million^9
+noventilliard           nonilliard
+decilliard              1000 million^10
+longmilliard              milliard
+longbilliard              billiard
+longtrilliard             trilliard
+longquadrilliard          quadrilliard
+longquintilliard          quintilliard
+longsextilliard           sextilliard
+longseptilliard           septilliard
+longoctilliard            octilliard
+longnonilliard            nonilliard
+longnoventilliard         noventilliard
+longdecilliard            decilliard
+!endcategory
+billion                 shortbillion
+trillion                shorttrillion
+quadrillion             shortquadrillion
+quintillion             shortquintillion
+sextillion              shortsextillion
+septillion              shortseptillion
+octillion               shortoctillion
+nonillion               shortnonillion
+noventillion            shortnoventillion
+decillion               shortdecillion
+undecillion             shortundecillion
+duodecillion            shortduodecillion
+tredecillion            shorttredecillion
+quattuordecillion       shortquattuordecillion
+quindecillion           shortquindecillion
+sexdecillion            shortsexdecillion
+septendecillion         shortseptendecillion
+octodecillion           shortoctodecillion
+novemdecillion          shortnovemdecillion
+vigintillion            shortvigintillion
+lakh                    1e5
+crore                   1e7
+arab                    1e9
+kharab                  1e11
+neel                    1e13
+padm                    1e15
+shankh                  1e17
+!category si_derived "SI Derived Units"
+newton                  kg m / s^2   # force
+N                       newton
+pascal                  N/m^2        # pressure or stress
+Pa                      pascal
+joule                   N m          # energy
+J                       joule
+watt                    J/s          # power
+W                       watt
+coulomb                 A s          # charge
+C                       coulomb
+volt                    W/A          # potential difference
+V                       volt
+ohm                     V/A          # electrical resistance
+siemens                 A/V          # electrical conductance
+S                       siemens
+farad                   C/V          # capacitance
+F                       farad
+weber                   V s          # magnetic flux
+Wb                      weber
+henry                   Wb/A         # inductance
+H                       henry
+tesla                   Wb/m^2       # magnetic flux density
+T                       tesla
+hertz                   /s           # frequency
+Hz                      hertz
+!endcategory
+dimensionless           ? 1
+length                  ? m
+area                    ? length^2
+volume                  ? length^3
+mass                    ? kg
+current                 ? A
+amount                  ? mol
+angle                   ? radian
+solid_angle             ? sr
+force                   ? acceleration mass
+pressure                ? force / area
+charge                  ? A s
+capacitance             ? charge / electrical_potential
+resistance              ? electrical_potential / current
+conductance             ? resistance^-1
+inductance              ? magnetic_flux / current
+frequency               ? time^-1
+velocity                ? length / time
+acceleration            ? velocity / time
+jerk                    ? acceleration / time
+snap                    ? jerk / time
+crackle                 ? snap / time
+pop                     ? crackle / time
+density                 ? mass / volume
+linear_density          ? mass / length
+viscosity               ? pressure time
+kinematic_viscosity     ? viscosity / density
+magnetic_flux           ? electrical_potential time
+magnetic_flux_density   ? magnetic_flux / area
+magnetization           ? current / length
+electrical_potential    ? power / current
+electric_field          ? force / charge
+entropy                 ? energy / temperature
+thermal_inductance      ? energy temperature^2 / power^2
+permittivity            ? capacitance / length
+permeability            ? inductance / length
+angular_momentum        ? mass area / time
+area_density            ? mass / area
+catalytic_activity      ? amount / time
+chemical_potential      ? energy / amount
+molar_concentration     ? amount / volume
+current_density         ? current / area
+electric_charge_density ? charge / volume
+electric_displacement   ? charge / area
+impulse                 ? mass length / time
+heat_flux_density       ? power / area
+molar_entropy           ? entropy / amount
+moment_of_inertia       ? mass area
+reaction_rate           ? amount / volume time
+specific_heat_capacity  ? energy / mass temperature
+specific_volume         ? volume / mass
+surface_tension         ? energy / area
+fuel_efficiency         ? area^-1
+specific_energy         ? energy / mass
+molar_mass              ? mass / amount
+flow_rate               ? volume / time
+pressure_column         ? pressure / length
+gram                    1|1000 kg
+gm                      gram
+g                       gram
+tonne                   1000 kg
+t                       tonne
+quintal                 100 kg
+bar                     1e5 Pa     # About 1 atm
+vac                     millibar
+micron                  micrometer # One millionth of a meter
+bicron                  picometer  # One brbillionth of a meter
+cc                      cm^3
+are                     100 m^2
+a                       are
+liter                   1000 cc       # The liter was defined in 1901 as the
+oldliter                1.000028 dm^3 # space occupied by 1 kg of pure water at
+L                       liter         # the temperature of its maximum density
+l                       liter         # under a pressure of 1 atm.  This was
+mho                     siemens    # Inverse of ohm, hence ohm spelled backward
+galvat                  ampere     # Named after Luigi Galvani
+angstrom                1e-10 m    # Convenient for describing molecular sizes
+xunit                   xunit_cu      # Used for measuring x-ray wavelengths.
+siegbahn                xunit         # Originally defined to be 1|3029.45 of
+xunit_cu             1.00207697e-13 m # the spacing of calcite planes at 18
+xunit_mo             1.00209952e-13 m # degC.  It was intended to be exactly
+angstromstar            1.00001495 angstrom # Defined by JA Bearden in 1965
+fermi                   1e-15 m    # Convenient for describing nuclear sizes
+barn                    1e-28 m^2  # Used to measure cross section for
+shed                    1e-24 barn # Defined to be a smaller companion to the
+diopter                 /m         # measures reciprocal of lens focal length
+fresnel                 1e12 Hz    # occasionally used in spectroscopy
+gamma                   microgram  # Also used for 1e-9 tesla
+lambda                  microliter
+spat                    1e12 m     # Rarely used for astronomical measurements
+preece                  1e13 ohm m # resistivity
+planck                  J s        # action of one joule over one second
+sturgeon                /henry     # magnetic reluctance
+daraf                   1/farad    # elastance (farad spelled backwards)
+leo                     10 m/s^2
+poiseuille              N s / m^2  # viscosity
+mayer                   J/g K      # specific heat
+mired                   / microK   # reciprocal color temperature.  The name
+metricounce             25 g
+mounce                  metricounce
+finsenunit              1e5 W/m^2  # Measures intensity of ultraviolet light
+fluxunit                1e-26 W/m^2 Hz # Used in radio astronomy to measure
+jansky                  fluxunit   # K. G. Jansky identified radio waves coming
+Jy                      jansky     # from outer space in 1931.
+flick       W / cm^2 sr micrometer # Spectral radiance or irradiance
+pfu                    / cm^2 sr s # particle flux unit -- Used to measure
+katal                   mol/sec    # Measure of the amount of a catalyst.  One
+kat                     katal      #   katal of catalyst enables the reaction
+sec                     s
+minute                  60 s
+min                     minute
+hour                    60 min
+hr                      hour
+h                       hour
+day                     24 hr
+d                       day
+da                      day
+week                    7 day
+wk                      week
+sennight                7 day
+fortnight               14 day
+blink                   1e-5 day   # Actual human blink takes 1|3 second
+ce                      1e-2 day
+watch                   4 hours    # time a sentry stands watch or a ship's
+bell                    1|8 watch  # Bell would be sounded every 30 minutes.
+decimalhour             1|10 day
+decimalminute           1|100 decimalhour
+decimalsecond           1|100 decimalminute
+beat                    decimalminute          # Swatch Internet Time
+circle                  2 pi radian
+degree                  1|360 circle
+deg                     degree
+arcdeg                  degree
+arcmin                  1|60 degree
+arcminute               arcmin
+'                       arcmin
+arcsec                  1|60 arcmin
+arcsecond               arcsec
+rightangle              90 degrees
+quadrant                1|4 circle
+quintant                1|5 circle
+sextant                 1|6 circle
+sign                    1|12 circle # Angular extent of one sign of the zodiac
+turn                    circle
+revolution              turn
+rev                     turn
+pulsatance              radian / sec
+gon                     1|100 rightangle  # measure of grade
+grade                   gon
+centesimalminute        1|100 grade
+centesimalsecond        1|100 centesimalminute
+milangle                1|6400 circle     # Official NIST definition.
+pointangle              1|32 circle  # Used for reporting compass readings
+centrad                 0.01 radian  # Used for angular deviation of light
+mas                     milli arcsec # Used by astronomers
+seclongitude            circle (seconds/day) # Astronomers measure longitude
+sphere                  4 pi sr
+squaredegree            1|180^2 pi^2 sr
+squareminute            1|60^2 squaredegree
+squaresecond            1|60^2 squareminute
+squarearcmin            squareminute
+squarearcsec            squaresecond
+sphericalrightangle     0.5 pi sr
+octant                  0.5 pi sr
+
+!category constants "Physical Constants"
+π                       3.14159265358979323846
+pi                      π
+τ                       2 pi
+tau                     τ
+c                       speed of light   # speed of light in vacuum (exact)
+mu0                     4 pi 1e-7 H/m    # permeability of vacuum (exact)
+epsilon0                1/mu0 c^2        # permittivity of vacuum (exact)
+mass_energy             c^2              # convert mass to energy
+planck_constant         6.626070040e-34 J s
+hbar                    planck_constant / 2 pi
+spin                    hbar
+G               6.67408e-11 N m^2 / kg^2 # Newtonian gravitational constant
+coulombconst            1/4 pi epsilon0  # listed as "k" sometimes
+atomicmassunit        1.660539040e-27 kg # atomic mass unit (defined to be
+u                       atomicmassunit   #   1|12 of the mass of carbon 12)
+amu                     atomicmassunit
+amu_chem                1.66026e-27 kg   # 1|16 of the weighted average mass of
+amu_phys                1.65981e-27 kg   # 1|16 of the mass of a neutral
+dalton                  u                # Maybe this should be amu_chem?
+avogadro                grams/amu mol    # size of a mole
+N_A                     avogadro
+gasconstant             boltzmann N_A    # molar gas constant
+R                       gasconstant
+boltzmann             1.38064852e-23 J/K # Boltzmann constant
+kboltzmann              boltzmann
+molarvolume         mol R stdtemp / atm  # Volume occupied by one mole of an
+loschmidt     avogadro mol / molarvolume # Molecules per cubic meter of an
+stefanboltzmann pi^2 boltzmann^4 / 60 hbar^3 c^2 # The power per area radiated by a
+sigma                   stefanboltzmann  #   blackbody at temperature T is
+wiendisplacement        2.8977729e-3 m K # Wien's Displacement Law gives the
+K_J90 483597.9 GHz/V    # Direct measurement of the volt is difficult.  Until
+K_J   483597.8525 GHz/V #   recently, laboratories kept Weston cadmium cells as
+R_K90 25812.807 ohm     # Measurement of the ohm also presents difficulties.
+R_K   25812.8074555 ohm #   The old approach involved maintaining resistances
+gravity                 9.80665 m/s^2    # std acceleration of gravity (exact)
+force                   gravity          # use to turn masses into forces
+atm                     101325 Pa        # Standard atmospheric pressure
+atmosphere              atm
+mach                    331.46 m/s       # speed of sound in dry air at STP
+standardtemp            273.15 K         # standard temperature
+stdtemp                 standardtemp
+
+Rinfinity            10973731.568539 /m  # The wavelengths of a spectral series
+R_H                     10967760 /m      #   can be expressed as
+alpha                   7.2973525664e-3  # The fine structure constant was
+bohrradius              alpha / 4 pi Rinfinity
+prout                   185.5 keV        # nuclear binding energy equal to 1|12
+planckmass              2.17651e-8 kg     # sqrt(hbar c / G)
+m_P                     planckmass
+plancktime              hbar / planckmass c^2
+t_P                     plancktime
+plancklength            plancktime c
+l_P                     plancklength
+bohrmagneton            electroncharge hbar / mass of 2 electron
+mu_B                    bohrmagneton
+kgf                     kg force
+technicalatmosphere     kgf / cm^2
+at                      technicalatmosphere
+hyl                     kgf s^2 / m   # Also gram-force s^2/m according to [15]
+torr                    atm / 760  # These units, both named after Evangelista
+tor                     Pa         # Torricelli, should not be confused.  The
+eV                      electroncharge V # Energy acquired by a particle with charge e
+electronvolt            eV       #   when it is accelerated through 1 V
+lightyear               c julianyear # The 365.25 day year is specified in
+ly                      lightyear    # NIST publication 811
+lightsecond             c s
+lightminute             c min
+parsec                  32313140071200 km
+pc                      parsec
+rydberg                 planck_constant c Rinfinity # Rydberg energy
+crith                   0.089885 gram       # The crith is the mass of one
+amagatvolume            molarvolume
+amagat                  mol/amagatvolume    # Used to measure gas densities
+lorentz                 bohrmagneton / planck_constant c # Used to measure the extent
+cminv                   planck_constant c / cm # Unit of energy used in infrared
+invcm                   cminv               #   spectroscopy.
+wavenumber              cminv
+!endcategory
+
+
+light {
+    speed               const light_speed           2.99792458e8 m/s
+}
+
+time                    ? s
+
+power                   ? energy / time
+
+energy                  ? force length
+
+
+electron {
+    mass                const electron_mass         5.48579909070e-4 u
+    charge              const electron_charge       1.6021766208e-19 C
+    radius              const electron_radius       ((1/4 pi epsilon0) \
+                                                    charge^2 / mass c^2)
+    wavelength          const electron_wavelength   planck_constant / mass c
+    magnetic_moment     const electron_moment       -928.4764620e-26 J/T
+}
+
+electroncharge          charge of electron
+
+temperature             ? K
+
+julianyear              365.25 day
+
+gallon                231 in^3        # US liquid measure is derived from
+
+
+mph                     mile/hr
+mpg                     mile/gallon
+kph                     km/hr
+kmh                     km/hr
+rpm                     rev/min
+rps                     rev/sec
+
+Wh                      W hour
+
+VA                      volt ampere
+
+kWh                     kilowatt hour
+
+horsepower              550 foot pound force / sec    # Invented by James Watt
+hp                      horsepower
+
+inch                    2.54 cm
+in                      inch
+foot                    12 inch
+
+pound                   0.45359237 kg   # The one normally used
+lb                      pound           # From the latin libra
+
+ft                      foot
+
+mile                    5280 ft          # The mile was enlarged from 5000 ft
