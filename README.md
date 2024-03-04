@@ -12,11 +12,11 @@
 ### Utilities
 - [x] double buffering
 - [x] keyboard input events (typing, shift/fn etc)
-- [ ] sd card os ?
+- [ ] sd card filesystem ?
 - [ ] app loader ?
 
 
-# examples
+# Examples
 
 ## 3d graphics demo
 ![gfx](https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/4ad54248-a363-4d34-b510-83186cdd3fb8)
