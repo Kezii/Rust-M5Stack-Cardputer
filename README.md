@@ -31,10 +31,7 @@ https://esp-rs.github.io/book/installation/riscv-and-xtensa.html
 ![gfx](https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/4ad54248-a363-4d34-b510-83186cdd3fb8)
 
 
-https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/ea274a64-5811-4846-b3f5-e94eeebd0635
-
-
-Interactive 3d graphics demo
+Interactive 3d graphics demo based on [embedded-gfx](https://github.com/Kezii/embedded-gfx)
 
 Use (orange) arrow keys to move, EASD to look around
 
