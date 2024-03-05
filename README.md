@@ -28,7 +28,7 @@ https://esp-rs.github.io/book/installation/riscv-and-xtensa.html
 # Examples
 
 ## 3d graphics demo
-![gfx](https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/4ad54248-a363-4d34-b510-83186cdd3fb8)
+https://github.com/Kezii/Rust-M5Stack-Cardputer/assets/3357750/658bd303-03c5-4dc2-9c49-75a98b667719
 
 
 Interactive 3d graphics demo based on [embedded-gfx](https://github.com/Kezii/embedded-gfx)
