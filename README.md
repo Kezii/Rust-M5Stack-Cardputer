@@ -15,6 +15,15 @@
 - [ ] sd card filesystem ?
 - [ ] app loader ?
 
+# Getting started
+
+First, install cargo or rustup using your (Linux) package manager, or from the official website
+
+https://doc.rust-lang.org/cargo/getting-started/installation.html
+
+Then, install the toolchain for esp32, following their official book
+
+https://esp-rs.github.io/book/installation/riscv-and-xtensa.html
 
 # Examples
 
