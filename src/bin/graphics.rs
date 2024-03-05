@@ -107,40 +107,46 @@ fn main() {
     loop {
         let fbuf = buffers.swap_framebuffer();
 
+        let ft = perf.get_frametime();
+        let dt = ft as f32 / 1_000_000.0;
+
         perf.start_of_frame();
+
+        let walking_speed = 5.0 * dt;
+        let turning_speed = 0.6 * dt;
 
         let keys = keyboard.read_keys();
         for key in keys {
             match key {
                 keyboard::Key::Semicolon => {
-                    player_pos.x += player_dir.cos() * 0.1;
-                    player_pos.z += player_dir.sin() * 0.1;
+                    player_pos.x += player_dir.cos() * walking_speed;
+                    player_pos.z += player_dir.sin() * walking_speed;
                 }
                 keyboard::Key::Period => {
-                    player_pos.x -= player_dir.cos() * 0.1;
-                    player_pos.z -= player_dir.sin() * 0.1;
+                    player_pos.x -= player_dir.cos() * walking_speed;
+                    player_pos.z -= player_dir.sin() * walking_speed;
                 }
                 keyboard::Key::Slash => {
-                    player_pos.x += (player_dir + PI / 2.0).cos() * 0.1;
-                    player_pos.z += (player_dir + PI / 2.0).sin() * 0.1;
+                    player_pos.x += (player_dir + PI / 2.0).cos() * walking_speed;
+                    player_pos.z += (player_dir + PI / 2.0).sin() * walking_speed;
                 }
                 keyboard::Key::Comma => {
-                    player_pos.x -= (player_dir + PI / 2.0).cos() * 0.1;
-                    player_pos.z -= (player_dir + PI / 2.0).sin() * 0.1;
+                    player_pos.x -= (player_dir + PI / 2.0).cos() * walking_speed;
+                    player_pos.z -= (player_dir + PI / 2.0).sin() * walking_speed;
                 }
 
                 keyboard::Key::D => {
-                    player_dir += 0.01;
+                    player_dir += turning_speed;
                 }
                 keyboard::Key::A => {
-                    player_dir -= 0.01;
+                    player_dir -= turning_speed;
                 }
 
                 keyboard::Key::E => {
-                    player_head += 0.01;
+                    player_head += turning_speed;
                 }
                 keyboard::Key::S => {
-                    player_head -= 0.01;
+                    player_head -= turning_speed;
                 }
                 _ => {}
             }
@@ -176,7 +182,7 @@ fn main() {
 
         perf.discard_measurement();
 
-        moving_parameter += 0.005;
+        moving_parameter += 0.3 * dt;
 
         //
         // ----------------- CUT HERE -----------------
