@@ -21,18 +21,18 @@ use load_stl::embed_stl;
 use log::info;
 use nalgebra::Point3;
 
-fn make_xz_plane() -> Vec<(f32, f32, f32)> {
+fn make_xz_plane() -> Vec<[f32; 3]> {
     let step = 1.0;
     let nsteps = 10;
 
     let mut vertices = Vec::new();
     for i in 0..nsteps {
         for j in 0..nsteps {
-            vertices.push((
+            vertices.push([
                 (i as f32 - nsteps as f32 / 2.0) * step,
                 0.0,
                 (j as f32 - nsteps as f32 / 2.0) * step,
-            ));
+            ]);
         }
     }
 
