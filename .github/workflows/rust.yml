@@ -19,4 +19,4 @@ jobs:
           default: true
           ldproxy: true
       - name: Run cargo check
-        run: cargo check
+        run: cargo check --bins --examples
