@@ -1,4 +1,5 @@
 # Rust on M5Stack Cardputer
+<a href="https://github.com/Kezii/Rust-M5Stack-Cardputer/actions"><img alt="actions" src="https://github.com/Kezii/Rust-M5Stack-Cardputer/actions/workflows/rust.yml/badge.svg"></a>
 
 ### Implemented drivers
 - [x] display
