@@ -59,7 +59,7 @@ pub fn prepare_display<SPI: SpiAnyPins>(
     let rst_pin = PinDriver::output(rst).unwrap();
     let bl_pin = PinDriver::output(bl).unwrap();
 
-    display_driver::ST7789::new(spi_interface, Some(rst_pin), Some(bl_pin), 240, 135)
+    display_driver::ST7789::new(spi_interface, Some(rst_pin), Some(bl_pin))
 }
 
 pub fn cardputer_peripherals<'a>(

@@ -1,6 +1,6 @@
 use cardputer::{
     hal::cardputer_peripherals,
-    terminal::Terminal,
+    terminal::FbTerminal,
     typing::{KeyboardEvent, Typing},
     SCREEN_HEIGHT, SCREEN_WIDTH,
 };
@@ -29,10 +29,11 @@ fn main() {
         cardputer_peripherals(peripherals.pins, peripherals.spi2, peripherals.ledc);
 
     let mut raw_fb = Box::new([0u16; SCREEN_WIDTH * SCREEN_HEIGHT]);
-    let mut terminal = Terminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr());
+    let mut terminal =
+        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut display);
+    terminal.auto_draw(true);
 
-    terminal.push_line("Espnow Remote");
-    display.eat_framebuffer(terminal.print("")).unwrap();
+    terminal.println("Espnow Remote");
 
     let mut wifi = EspWifi::new(peripherals.modem, sysloop.clone(), None).unwrap();
 
@@ -51,8 +52,8 @@ fn main() {
 
     wifi.start().unwrap();
 
-    terminal.push_line("Wifi started");
-    display.eat_framebuffer(terminal.print("")).unwrap();
+    terminal.println("Wifi started");
+    terminal.println("Scanning...");
 
     let peer_address = loop {
         let peer_address = find_client(&mut wifi);
@@ -61,12 +62,10 @@ fn main() {
             break peer_address;
         }
 
-        terminal.push_line("No peer found. Retrying...");
-        display.eat_framebuffer(terminal.print("")).unwrap();
+        terminal.println("No peer found. Retrying...");
     };
 
-    terminal.push_line(&format!("found peer: {:?}", peer_address));
-    display.eat_framebuffer(terminal.print("")).unwrap();
+    terminal.println(&format!("found peer: {:?}", peer_address));
 
     let espnow = EspNow::take().unwrap();
 
@@ -87,8 +86,7 @@ fn main() {
 
     let mut typing = Typing::new();
 
-    terminal.push_line("Ready. Type to send.");
-    display.eat_framebuffer(terminal.print("")).unwrap();
+    terminal.println("Ready. Type to send");
 
     loop {
         let evt = keyboard.read_events();

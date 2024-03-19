@@ -11,6 +11,8 @@ use embedded_graphics::{
     text::Text,
 };
 
+use crate::display_driver::FramebufferTarget;
+
 struct TerminalRows {
     rows: [String; 9],
 }
@@ -41,23 +43,70 @@ impl TerminalRows {
     }
 }
 
-pub struct Terminal<const W: usize, const H: usize> {
-    fbuf: DmaReadyFramebuffer<W, H>,
-    rows: TerminalRows,
+pub struct CommandLine {
+    line: String,
+    previous: String,
 }
 
-impl<const W: usize, const H: usize> Terminal<W, H> {
-    pub fn new(fb: *mut u16) -> Terminal<W, H> {
-        //let mut raw_fb = Box::new([[0u16; W]; H]);
+impl CommandLine {
+    fn new() -> Self {
+        Self {
+            line: String::new(),
+            previous: String::new(),
+        }
+    }
 
+    pub fn push(&mut self, c: char) {
+        self.line.push(c);
+    }
+
+    pub fn pop(&mut self) {
+        self.line.pop();
+    }
+
+    fn enter(&mut self) {
+        self.previous = self.line.clone();
+        self.line.clear();
+    }
+
+    pub fn get(&self) -> &str {
+        &self.line
+    }
+
+    pub fn arrow_up(&mut self) {
+        self.line = self.previous.clone();
+    }
+}
+
+pub struct FbTerminal<'a, const W: usize, const H: usize> {
+    fbuf: DmaReadyFramebuffer<W, H>,
+    rows: TerminalRows,
+    display: &'a mut dyn FramebufferTarget,
+    pub command_line: CommandLine,
+    /// draw to framebuffer after push_line
+    auto_draw: bool,
+}
+
+impl<'a, const W: usize, const H: usize> FbTerminal<'a, W, H> {
+    pub fn new(fb: *mut u16, display: &'a mut impl FramebufferTarget) -> FbTerminal<'a, W, H> {
         let fbuf = DmaReadyFramebuffer::<W, H>::new(fb as *mut c_void, true);
 
         let rows = TerminalRows::new();
 
-        Terminal { fbuf, rows }
+        FbTerminal {
+            fbuf,
+            rows,
+            display,
+            command_line: CommandLine::new(),
+            auto_draw: false,
+        }
     }
 
-    pub fn push_line(&mut self, res: &str) {
+    pub fn auto_draw(&mut self, auto: bool) {
+        self.auto_draw = auto;
+    }
+
+    pub fn println(&mut self, res: &str) {
         let max_width = 28;
         let mut line = String::new();
         for c in res.chars() {
@@ -68,9 +117,18 @@ impl<const W: usize, const H: usize> Terminal<W, H> {
             line.push(c);
         }
         self.rows.push(line);
+
+        if self.auto_draw {
+            self.draw();
+        }
     }
 
-    pub fn print(&mut self, command_line: &str) -> &[u16] {
+    pub fn enter(&mut self) {
+        self.println(&format!("> {}", self.command_line.line));
+        self.command_line.enter();
+    }
+
+    pub fn draw(&mut self) {
         let text_style = MonoTextStyle::new(&FONT_8X13, Rgb565::new(252, 252, 252));
         self.fbuf.clear(Rgb565::new(0, 1, 0)).unwrap();
 
@@ -84,8 +142,9 @@ impl<const W: usize, const H: usize> Terminal<W, H> {
         ))
         .draw(&mut self.fbuf)
         .unwrap();
+
         Text::new(
-            &format!("> {}", command_line),
+            &format!("> {}", self.command_line.get()),
             Point::new(3, H as i32 - 5),
             text_style,
         )
@@ -94,6 +153,6 @@ impl<const W: usize, const H: usize> Terminal<W, H> {
 
         self.rows.print(&mut self.fbuf);
 
-        self.fbuf.as_slice()
+        self.display.eat_framebuffer(self.fbuf.as_slice()).unwrap();
     }
 }

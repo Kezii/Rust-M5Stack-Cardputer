@@ -3,6 +3,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
+use crate::display_driver::FramebufferTarget;
 use display_interface_spi::SPIInterface;
 use embedded_gfx::framebuffer::DmaReadyFramebuffer;
 use esp_idf_hal::{

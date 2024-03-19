@@ -57,9 +57,6 @@ where
     rst: Option<RST>,
     // Backlight pin,
     bl: Option<BL>,
-    // Visible size (x, y)
-    size_x: u16,
-    size_y: u16,
     // Current orientation
     orientation: Orientation,
 }
@@ -127,13 +124,11 @@ where
     /// * `size_x` - x axis resolution of the display in pixels
     /// * `size_y` - y axis resolution of the display in pixels
     ///
-    pub fn new(di: DI, rst: Option<RST>, bl: Option<BL>, size_x: u16, size_y: u16) -> Self {
+    pub fn new(di: DI, rst: Option<RST>, bl: Option<BL>) -> Self {
         Self {
             di,
             rst,
             bl,
-            size_x,
-            size_y,
             orientation: Orientation::default(),
         }
     }
@@ -305,13 +300,6 @@ where
             .map_err(|_| Error::DisplayError)
     }
 
-    pub fn eat_framebuffer(&mut self, buf: &[u16]) -> Result<(), Error<PinE>> {
-        self.write_command(Instruction::RAMWR)?;
-        self.di
-            .send_data(DataFormat::U16(buf))
-            .map_err(|_| Error::DisplayError)
-    }
-
     // Sets the address window for the display.
     pub fn set_address_window(
         &mut self,
@@ -343,5 +331,28 @@ where
                 self.write_data(&[1])
             }
         }
+    }
+}
+
+#[derive(Debug)]
+pub enum FbWriteError {
+    Error,
+}
+pub trait FramebufferTarget {
+    fn eat_framebuffer(&mut self, buf: &[u16]) -> Result<(), FbWriteError>;
+}
+
+impl<DI, RST, BL, PinE> FramebufferTarget for ST7789<DI, RST, BL>
+where
+    DI: WriteOnlyDataCommand,
+    RST: OutputPin<Error = PinE>,
+    BL: OutputPin<Error = PinE>,
+{
+    fn eat_framebuffer(&mut self, buf: &[u16]) -> Result<(), FbWriteError> {
+        self.write_command(Instruction::RAMWR)
+            .map_err(|_| FbWriteError::Error)?;
+        self.di
+            .send_data(DataFormat::U16(buf))
+            .map_err(|_| FbWriteError::Error)
     }
 }
