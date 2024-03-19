@@ -52,6 +52,17 @@ You can use it as a simple units-aware calculator
 cargo run --release --bin rink
 ```
 
+## ESP-NOW remote keyboard
+
+Sends key events over ESP-NOW, using the Cardputer as a remote keyboard
+
+An ESP-NOW receiver with a wifi access point is required
+
+```
+cargo run --release --bin espnow_remote
+```
+
+
 # Credits
 Upstream display driver
 
