@@ -2,12 +2,11 @@ use display_interface_spi::SPIInterface;
 
 use esp_idf_hal::{
     delay::Ets,
-    gpio::{IOPin, InputPin, Output, OutputPin, PinDriver},
-    ledc::{LedcChannel, LedcTimer},
+    gpio::{self, IOPin, InputPin, Output, OutputPin, PinDriver},
+    ledc::{self, LedcChannel, LedcTimer},
     peripheral::Peripheral,
-    peripherals,
     prelude::*,
-    spi::{Dma, SpiAnyPins, SpiDeviceDriver, SpiDriver, SpiDriverConfig},
+    spi::{self, Dma, SpiAnyPins, SpiDeviceDriver, SpiDriver, SpiDriverConfig},
 };
 
 use crate::{display_driver, keyboard::CardputerKeyboard};
@@ -64,7 +63,9 @@ pub fn prepare_display<SPI: SpiAnyPins>(
 }
 
 pub fn cardputer_peripherals<'a>(
-    peripherals: peripherals::Peripherals,
+    pins: gpio::Pins,
+    spi2: spi::SPI2,
+    ledc: ledc::LEDC,
 ) -> (
     display_driver::ST7789<
         SPIInterface<
@@ -79,16 +80,16 @@ pub fn cardputer_peripherals<'a>(
     // display
 
     let mut display = prepare_display(
-        peripherals.spi2,
-        peripherals.pins.gpio35,
+        spi2,
+        pins.gpio35,
         None as Option<esp_idf_hal::gpio::Gpio37>, //not true but we need to make the compiler happy
-        peripherals.pins.gpio36,
-        Some(peripherals.pins.gpio37),
-        peripherals.pins.gpio33,
-        peripherals.pins.gpio34,
-        peripherals.pins.gpio38,
-        peripherals.ledc.timer0,
-        peripherals.ledc.channel0,
+        pins.gpio36,
+        Some(pins.gpio37),
+        pins.gpio33,
+        pins.gpio34,
+        pins.gpio38,
+        ledc.timer0,
+        ledc.channel0,
     );
 
     let mut delay = Ets;
@@ -104,20 +105,20 @@ pub fn cardputer_peripherals<'a>(
 
     // keyboard
 
-    let mux_pins = [
-        PinDriver::output(peripherals.pins.gpio8.downgrade_output()).unwrap(),
-        PinDriver::output(peripherals.pins.gpio9.downgrade_output()).unwrap(),
-        PinDriver::output(peripherals.pins.gpio11.downgrade_output()).unwrap(),
+    let mux_pins: [PinDriver<'_, gpio::AnyOutputPin, Output>; 3] = [
+        PinDriver::output(pins.gpio8.downgrade_output()).unwrap(),
+        PinDriver::output(pins.gpio9.downgrade_output()).unwrap(),
+        PinDriver::output(pins.gpio11.downgrade_output()).unwrap(),
     ];
 
     let column_pins = [
-        PinDriver::input(peripherals.pins.gpio13.downgrade()).unwrap(),
-        PinDriver::input(peripherals.pins.gpio15.downgrade()).unwrap(),
-        PinDriver::input(peripherals.pins.gpio3.downgrade()).unwrap(),
-        PinDriver::input(peripherals.pins.gpio4.downgrade()).unwrap(),
-        PinDriver::input(peripherals.pins.gpio5.downgrade()).unwrap(),
-        PinDriver::input(peripherals.pins.gpio6.downgrade()).unwrap(),
-        PinDriver::input(peripherals.pins.gpio7.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio13.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio15.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio3.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio4.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio5.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio6.downgrade()).unwrap(),
+        PinDriver::input(pins.gpio7.downgrade()).unwrap(),
     ];
 
     let mut keyboard = CardputerKeyboard::new(mux_pins, column_pins);

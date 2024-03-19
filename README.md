@@ -49,7 +49,7 @@ Terminal emulator with rink-core built-in, with a reduced set of (gnu) units so 
 You can use it as a simple units-aware calculator
 
 ```
-cargo run --release --bin terminal
+cargo run --release --bin rink
 ```
 
 # Credits
