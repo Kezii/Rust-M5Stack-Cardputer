@@ -62,23 +62,22 @@ pub fn prepare_display<SPI: SpiAnyPins>(
     display_driver::ST7789::new(spi_interface, Some(rst_pin), Some(bl_pin))
 }
 
+pub struct CardputerPeripherals<P: OutputPin, Q: OutputPin, R: OutputPin> {
+    pub display: display_driver::ST7789<
+        SPIInterface<SpiDeviceDriver<'static, SpiDriver<'static>>, PinDriver<'static, P, Output>>,
+        esp_idf_hal::gpio::PinDriver<'static, Q, esp_idf_hal::gpio::Output>,
+        esp_idf_hal::gpio::PinDriver<'static, R, esp_idf_hal::gpio::Output>,
+    >,
+    pub keyboard: CardputerKeyboard<'static>,
+    pub speaker: esp_idf_hal::i2s::I2sDriver<'static, esp_idf_hal::i2s::I2sTx>,
+}
+
 pub fn cardputer_peripherals<'a>(
     pins: gpio::Pins,
     spi2: spi::SPI2,
     ledc: ledc::LEDC,
     i2s: esp_idf_hal::i2s::I2S0,
-) -> (
-    display_driver::ST7789<
-        SPIInterface<
-            SpiDeviceDriver<'static, SpiDriver<'static>>,
-            PinDriver<'static, impl OutputPin, Output>,
-        >,
-        esp_idf_hal::gpio::PinDriver<'static, impl OutputPin, esp_idf_hal::gpio::Output>,
-        esp_idf_hal::gpio::PinDriver<'static, impl OutputPin, esp_idf_hal::gpio::Output>,
-    >,
-    CardputerKeyboard<'a>,
-    esp_idf_hal::i2s::I2sDriver<'static, esp_idf_hal::i2s::I2sTx>,
-) {
+) -> CardputerPeripherals<impl OutputPin, impl OutputPin, impl OutputPin> {
     // display
 
     let mut display = prepare_display(
@@ -141,5 +140,10 @@ pub fn cardputer_peripherals<'a>(
     )
     .unwrap();
 
-    (display, keyboard, speaker)
+    //(display, keyboard, speaker)
+    CardputerPeripherals {
+        display,
+        keyboard,
+        speaker,
+    }
 }

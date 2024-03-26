@@ -4,9 +4,9 @@
 ### Implemented drivers
 - [x] display
 - [x] keyboard
+- [x] speaker (needs testing, #2)
 - [ ] sd card
 - [ ] battery
-- [ ] speaker
 - [ ] microphone
 - [ ] rgb led
 

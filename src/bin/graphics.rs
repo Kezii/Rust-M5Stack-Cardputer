@@ -47,7 +47,7 @@ fn main() {
 
     let peripherals = peripherals::Peripherals::take().unwrap();
 
-    let (display, mut keyboard, _) = cardputer_peripherals(
+    let mut p = cardputer_peripherals(
         peripherals.pins,
         peripherals.spi2,
         peripherals.ledc,
@@ -62,7 +62,7 @@ fn main() {
         raw_framebuffer_1.as_mut_ptr() as *mut c_void,
     );
 
-    buffers.start_thread(display);
+    buffers.start_thread(p.display);
 
     let text_style = MonoTextStyle::new(&FONT_6X10, Rgb565::CSS_WHITE);
 
@@ -120,7 +120,7 @@ fn main() {
         let walking_speed = 5.0 * dt;
         let turning_speed = 0.6 * dt;
 
-        let keys = keyboard.read_keys();
+        let keys = p.keyboard.read_keys();
         for key in keys {
             match key {
                 keyboard::Key::Semicolon => {

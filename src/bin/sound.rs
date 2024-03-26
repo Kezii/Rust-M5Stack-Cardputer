@@ -34,7 +34,7 @@ fn main() {
 
     // esp_idf_hal::i2s::I2sDriver::new_std_tx(i2s, config, bclk, dout, mclk, ws)
     let peripherals = peripherals::Peripherals::take().unwrap();
-    let (mut display, mut keyboard, mut speaker) = cardputer_peripherals(
+    let mut p = cardputer_peripherals(
         peripherals.pins,
         peripherals.spi2,
         peripherals.ledc,
@@ -43,12 +43,12 @@ fn main() {
 
     let mut raw_fb = Box::new([0u16; SCREEN_WIDTH * SCREEN_HEIGHT]);
     let mut terminal =
-        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut display);
+        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut p.display);
 
     let mut typing = Typing::new();
 
     loop {
-        let evt = keyboard.read_events();
+        let evt = p.keyboard.read_events();
         if let Some(evt) = evt {
             if let Some(evts) = typing.eat_keyboard_events(evt) {
                 match evts {
@@ -59,26 +59,27 @@ fn main() {
                         terminal.command_line.pop();
                     }
                     KeyboardEvent::Enter => {
+                        terminal.enter();
+
                         let text = terminal.command_line.get();
+
                         match text {
                             "b" => {
                                 terminal.println("Beep");
-                                speaker.tx_enable().unwrap();
-                                speaker
+                                p.speaker.tx_enable().unwrap();
+                                p.speaker
                                     .write_all(
                                         &generate_sine_wave(1.0),
                                         esp_idf_hal::delay::TickType::new_millis(2000).into(),
                                     )
                                     .unwrap();
-                                speaker.flush().unwrap();
-                                speaker.tx_disable().unwrap();
+                                p.speaker.flush().unwrap();
+                                p.speaker.tx_disable().unwrap();
                             }
                             _ => {
                                 terminal.println("?");
                             }
                         }
-
-                        terminal.enter();
                     }
                     KeyboardEvent::ArrowUp => {
                         terminal.command_line.arrow_up();

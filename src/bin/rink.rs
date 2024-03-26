@@ -15,7 +15,7 @@ fn main() {
 
     let peripherals = peripherals::Peripherals::take().unwrap();
 
-    let (mut display, mut keyboard, _) = cardputer_peripherals(
+    let mut p = cardputer_peripherals(
         peripherals.pins,
         peripherals.spi2,
         peripherals.ledc,
@@ -24,14 +24,14 @@ fn main() {
 
     let mut raw_fb = Box::new([0u16; SCREEN_WIDTH * SCREEN_HEIGHT]);
     let mut terminal =
-        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut display);
+        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut p.display);
 
     let mut typing = Typing::new();
 
     let mut ctx = simple_context_().unwrap();
 
     loop {
-        let evt = keyboard.read_events();
+        let evt = p.keyboard.read_events();
         if let Some(evt) = evt {
             if let Some(evts) = typing.eat_keyboard_events(evt) {
                 match evts {

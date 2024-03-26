@@ -25,7 +25,7 @@ fn main() {
 
     let sysloop = EspSystemEventLoop::take().unwrap();
 
-    let (mut display, mut keyboard, _) = cardputer_peripherals(
+    let mut p = cardputer_peripherals(
         peripherals.pins,
         peripherals.spi2,
         peripherals.ledc,
@@ -34,7 +34,7 @@ fn main() {
 
     let mut raw_fb = Box::new([0u16; SCREEN_WIDTH * SCREEN_HEIGHT]);
     let mut terminal =
-        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut display);
+        FbTerminal::<SCREEN_WIDTH, SCREEN_HEIGHT>::new(raw_fb.as_mut_ptr(), &mut p.display);
     terminal.auto_draw(true);
 
     terminal.println("Espnow Remote");
@@ -93,7 +93,7 @@ fn main() {
     terminal.println("Ready. Type to send");
 
     loop {
-        let evt = keyboard.read_events();
+        let evt = p.keyboard.read_events();
         if let Some(evt) = evt {
             if let Some(KeyboardEvent::Ascii(c)) = typing.eat_keyboard_events(evt) {
                 espnow.send(peer_address, &[c as u8]).unwrap();
