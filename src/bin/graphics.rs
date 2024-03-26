@@ -47,8 +47,12 @@ fn main() {
 
     let peripherals = peripherals::Peripherals::take().unwrap();
 
-    let (display, mut keyboard) =
-        cardputer_peripherals(peripherals.pins, peripherals.spi2, peripherals.ledc);
+    let (display, mut keyboard, _) = cardputer_peripherals(
+        peripherals.pins,
+        peripherals.spi2,
+        peripherals.ledc,
+        peripherals.i2s0,
+    );
 
     let mut raw_framebuffer_0 = Box::new([0u16; 240 * 135]);
     let mut raw_framebuffer_1 = Box::new([0u16; 240 * 135]);

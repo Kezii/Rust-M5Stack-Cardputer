@@ -25,8 +25,12 @@ fn main() {
 
     let sysloop = EspSystemEventLoop::take().unwrap();
 
-    let (mut display, mut keyboard) =
-        cardputer_peripherals(peripherals.pins, peripherals.spi2, peripherals.ledc);
+    let (mut display, mut keyboard, _) = cardputer_peripherals(
+        peripherals.pins,
+        peripherals.spi2,
+        peripherals.ledc,
+        peripherals.i2s0,
+    );
 
     let mut raw_fb = Box::new([0u16; SCREEN_WIDTH * SCREEN_HEIGHT]);
     let mut terminal =

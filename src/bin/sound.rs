@@ -1,3 +1,5 @@
+use std::f32::consts::PI;
+
 use cardputer::{
     hal::cardputer_peripherals,
     terminal::FbTerminal,
@@ -6,19 +8,19 @@ use cardputer::{
 };
 use esp_idf_hal::{io::Write, peripherals};
 
-const SAMPLE_RATE: f64 = 48000.0;
-const FREQUENCY: f64 = 440.0;
-const AMPLITUDE: f64 = 127.0;
+const SAMPLE_RATE: f32 = 48000.0;
+const FREQUENCY: f32 = 440.0;
+const AMPLITUDE: f32 = 127.0;
 
-fn generate_sine_wave(duration_secs: f64) -> Vec<u8> {
+fn generate_sine_wave(duration_secs: f32) -> Vec<u8> {
     let num_samples = (duration_secs * SAMPLE_RATE) as usize;
     let mut samples = Vec::with_capacity(num_samples);
 
     let sample_period = 1.0 / SAMPLE_RATE;
 
     for i in 0..num_samples {
-        let t = i as f64 * sample_period;
-        let angular_freq = 2.0 * 3.141593 * FREQUENCY + t * 200.0;
+        let t = i as f32 * sample_period;
+        let angular_freq = 2.0 * PI * FREQUENCY + t * 200.0;
         let sample_value = (AMPLITUDE * (angular_freq * t).sin()) as u8;
         samples.push(sample_value);
     }
