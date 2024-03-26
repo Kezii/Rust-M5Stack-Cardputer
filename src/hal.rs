@@ -66,6 +66,7 @@ pub fn cardputer_peripherals<'a>(
     pins: gpio::Pins,
     spi2: spi::SPI2,
     ledc: ledc::LEDC,
+    i2s: esp_idf_hal::i2s::I2S0,
 ) -> (
     display_driver::ST7789<
         SPIInterface<
@@ -76,6 +77,7 @@ pub fn cardputer_peripherals<'a>(
         esp_idf_hal::gpio::PinDriver<'static, impl OutputPin, esp_idf_hal::gpio::Output>,
     >,
     CardputerKeyboard<'a>,
+    esp_idf_hal::i2s::I2sDriver<'static, esp_idf_hal::i2s::I2sTx>,
 ) {
     // display
 
@@ -124,5 +126,20 @@ pub fn cardputer_peripherals<'a>(
     let mut keyboard = CardputerKeyboard::new(mux_pins, column_pins);
     keyboard.init();
 
-    (display, keyboard)
+    // speaker
+
+    let speaker = esp_idf_hal::i2s::I2sDriver::new_std_tx(
+        i2s,
+        &esp_idf_hal::i2s::config::StdConfig::philips(
+            48000,
+            esp_idf_hal::i2s::config::DataBitWidth::Bits8,
+        ),
+        pins.gpio41,
+        pins.gpio42,
+        None as Option<esp_idf_hal::gpio::AnyIOPin>,
+        pins.gpio43,
+    )
+    .unwrap();
+
+    (display, keyboard, speaker)
 }
