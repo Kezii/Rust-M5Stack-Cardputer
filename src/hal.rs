@@ -129,9 +129,15 @@ pub fn cardputer_peripherals<'a>(
 
     let speaker = esp_idf_hal::i2s::I2sDriver::new_std_tx(
         i2s,
-        &esp_idf_hal::i2s::config::StdConfig::philips(
-            48000,
-            esp_idf_hal::i2s::config::DataBitWidth::Bits8,
+        &esp_idf_hal::i2s::config::StdConfig::new(
+            // TODO Move these options into a config parameter
+            esp_idf_hal::i2s::config::Config::default().auto_clear(true),
+            esp_idf_hal::i2s::config::StdClkConfig::from_sample_rate_hz(48000),
+            esp_idf_hal::i2s::config::StdSlotConfig::philips_slot_default(
+                esp_idf_hal::i2s::config::DataBitWidth::Bits8,
+                esp_idf_hal::i2s::config::SlotMode::Mono,
+            ),
+            Default::default(),
         ),
         pins.gpio41,
         pins.gpio42,
