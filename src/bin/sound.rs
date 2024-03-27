@@ -8,26 +8,6 @@ use cardputer::{
 };
 use esp_idf_hal::{io::Write, peripherals};
 
-const SAMPLE_RATE: f32 = 48000.0;
-const FREQUENCY: f32 = 440.0;
-const AMPLITUDE: f32 = 127.0;
-
-fn generate_sine_wave(duration_secs: f32) -> Vec<u8> {
-    let num_samples = (duration_secs * SAMPLE_RATE) as usize;
-    let mut samples = Vec::with_capacity(num_samples);
-
-    let sample_period = 1.0 / SAMPLE_RATE;
-
-    for i in 0..num_samples {
-        let t = i as f32 * sample_period;
-        let angular_freq = 2.0 * PI * FREQUENCY + t * 200.0;
-        let sample_value = (AMPLITUDE * (angular_freq * t).sin()) as u8;
-        samples.push(sample_value);
-    }
-
-    samples
-}
-
 #[allow(clippy::approx_constant)]
 fn main() {
     esp_idf_svc::sys::link_patches();
@@ -47,6 +27,12 @@ fn main() {
 
     let mut typing = Typing::new();
 
+    // Enable the speaker,
+    // TODO: is there reason to not do this in hal.rs?
+    p.speaker.tx_enable().unwrap();
+
+    let wav = generate_sine_wave(1.0, 880.0);
+
     loop {
         let evt = p.keyboard.read_events();
         if let Some(evt) = evt {
@@ -59,27 +45,23 @@ fn main() {
                         terminal.command_line.pop();
                     }
                     KeyboardEvent::Enter => {
-                        terminal.enter();
-
                         let text = terminal.command_line.get();
 
                         match text {
                             "b" => {
-                                terminal.println("Beep");
-                                p.speaker.tx_enable().unwrap();
                                 p.speaker
                                     .write_all(
-                                        &generate_sine_wave(1.0),
-                                        esp_idf_hal::delay::TickType::new_millis(2000).into(),
+                                        &wav,
+                                        esp_idf_hal::delay::TickType::new_millis(100).into(),
                                     )
                                     .unwrap();
-                                p.speaker.flush().unwrap();
-                                p.speaker.tx_disable().unwrap();
                             }
                             _ => {
-                                terminal.println("?");
+                                terminal.println("Commands: b to Beep");
                             }
                         }
+
+                        terminal.enter();
                     }
                     KeyboardEvent::ArrowUp => {
                         terminal.command_line.arrow_up();
@@ -91,4 +73,23 @@ fn main() {
 
         terminal.draw();
     }
+}
+
+fn generate_sine_wave(duration_secs: f32, frequency: f32) -> Vec<u8> {
+    const SAMPLE_RATE: f32 = 48000.0;
+    const AMPLITUDE: f32 = 127.0;
+
+    let num_samples = (duration_secs * SAMPLE_RATE) as usize;
+    let mut samples = Vec::with_capacity(num_samples);
+
+    let sample_period = 1.0 / SAMPLE_RATE;
+
+    for i in 0..num_samples {
+        let t = i as f32 * sample_period;
+        let angular_freq = 2.0 * PI * frequency;
+        let sample_value = (AMPLITUDE * (angular_freq * t).sin()) as u8;
+        samples.push(sample_value);
+    }
+
+    samples
 }
